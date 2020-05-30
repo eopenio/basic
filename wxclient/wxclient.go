@@ -8,9 +8,10 @@ import (
 )
 
 var (
-	app    *workwx.WorkwxApp
-	m      sync.RWMutex
-	inited bool
+	app       *workwx.WorkwxApp
+	recipient workwx.Recipient
+	m         sync.RWMutex
+	inited    bool
 )
 
 // Init 初始化Redis
@@ -27,11 +28,11 @@ func Init() {
 
 	// 打开才加载
 	if workwxConfig != nil && workwxConfig.GetEnabled() {
-		log.Info("初始化Workwx...")
+		log.Info("开始初始化Workwx")
 
 		initWorkwx(workwxConfig)
 
-		log.Info("初始化Workwx，检测连接...")
+		log.Info("初始化Workwx完成，开始检测连接...")
 		app.SpawnAccessTokenRefresher()
 
 		testUser := workwx.Recipient{
@@ -42,6 +43,7 @@ func Init() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
+		log.Info("初始化Workwx完成，检测连接完成。")
 	}
 	inited = true
 }
@@ -54,4 +56,24 @@ func GetWorkwx() *workwx.WorkwxApp {
 func initWorkwx(workwxConfig config.WorkwxConfig) {
 	client := workwx.New(workwxConfig.GetCorpId())
 	app = client.WithApp(workwxConfig.GetCorpSecret(), workwxConfig.GetAgentId())
+}
+
+// UserIDs 成员ID列表（消息接收者），最多支持1000个
+func SetRecipientToUser(uids []string) workwx.Recipient {
+	return workwx.Recipient{UserIDs: uids}
+}
+
+// PartyIDs 部门ID列表，最多支持100个。
+func SetRecipientToDept(depts []string) workwx.Recipient {
+	return workwx.Recipient{PartyIDs: depts}
+}
+
+// TagIDs 标签ID列表，最多支持100个
+func SetRecipientToTag(tags []string) workwx.Recipient {
+	return workwx.Recipient{TagIDs: tags}
+}
+
+// ChatID 应用关联群聊ID，仅用于【发送消息到群聊会话】
+func SetRecipientToChat(chatid string) workwx.Recipient {
+	return workwx.Recipient{ChatID: chatid}
 }
