@@ -9,10 +9,11 @@ import (
 
 var (
 	app       *workwx.WorkwxApp
-	recipient workwx.Recipient
 	m         sync.RWMutex
 	inited    bool
 )
+
+type WxRecipient workwx.Recipient
 
 // Init 初始化Redis
 func Init() {
@@ -59,21 +60,21 @@ func initWorkwx(workwxConfig config.WorkwxConfig) {
 }
 
 // UserIDs 成员ID列表（消息接收者），最多支持1000个
-func SetRecipientToUser(uids []string) workwx.Recipient {
-	return workwx.Recipient{UserIDs: uids}
+func SetRecipientToUser(uids []string) WxRecipient {
+	return WxRecipient{UserIDs: uids}
 }
 
 // PartyIDs 部门ID列表，最多支持100个。
-func SetRecipientToDept(depts []string) workwx.Recipient {
-	return workwx.Recipient{PartyIDs: depts}
+func SetRecipientToDept(depts []string) WxRecipient {
+	return WxRecipient{PartyIDs: depts}
 }
 
 // TagIDs 标签ID列表，最多支持100个
-func SetRecipientToTag(tags []string) workwx.Recipient {
-	return workwx.Recipient{TagIDs: tags}
+func SetRecipientToTag(tags []string) WxRecipient {
+	return WxRecipient{TagIDs: tags}
 }
 
 // ChatID 应用关联群聊ID，仅用于【发送消息到群聊会话】
-func SetRecipientToChat(chatid string) workwx.Recipient {
-	return workwx.Recipient{ChatID: chatid}
+func SetRecipientToChat(chatid string) WxRecipient {
+	return WxRecipient{ChatID: chatid}
 }
