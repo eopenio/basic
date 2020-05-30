@@ -3,21 +3,23 @@ package config
 // WorkwxConfig workwx 配置 接口
 type WorkwxConfig interface {
 	GetEnabled() bool
-	GetAgentId() int
+	GetAgentId() int64
 	GetCorpId() string
 	GetCorpSecret() string
 	GetQyAPIHostOverride() string
 	GetTlsKeyLogFile() string
+	GetAdminUser() string
 }
 
 // defaultWorkwxConfig workwx 配置
 type defaultWorkwxConfig struct {
 	Enable            bool   `json:"enabled"`
-	AgentId           int    `json:"agentid"`
+	AgentId           int64  `json:"agentid"`
 	CorpId            string `json:"corpid"`
 	CorpSecret        string `json:"corpsecret"`
 	QyAPIHostOverride string `json:"qy_api_host_override"`
 	TlsKeyLogFile     string `json:"tls_key_log_file"`
+	AdminUser         string `json:"admin_user"`
 }
 
 // Enabled 激活
@@ -26,7 +28,7 @@ func (m defaultWorkwxConfig) GetEnabled() bool {
 }
 
 // 企业 ID
-func (m defaultWorkwxConfig) GetAgentId() int {
+func (m defaultWorkwxConfig) GetAgentId() int64 {
 	return m.AgentId
 }
 
@@ -48,4 +50,9 @@ func (m defaultWorkwxConfig) GetQyAPIHostOverride() string {
 // HTTPS 会话所用密钥
 func (m defaultWorkwxConfig) GetTlsKeyLogFile() string {
 	return m.TlsKeyLogFile
+}
+
+// HTTPS 会话所用密钥
+func (m defaultWorkwxConfig) GetAdminUser() string {
+	return m.AdminUser
 }
