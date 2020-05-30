@@ -17,9 +17,9 @@ type defaultWorkwxConfig struct {
 	AgentId           int64  `json:"agentid"`
 	CorpId            string `json:"corpid"`
 	CorpSecret        string `json:"corpsecret"`
-	QyAPIHostOverride string `json:"qy_api_host_override"`
-	TlsKeyLogFile     string `json:"tls_key_log_file"`
 	AdminUser         string `json:"admin_user"`
+	QyAPIHostOverride string `json:"qy_api_host_override,omitempty"`
+	TlsKeyLogFile     string `json:"tls_key_log_file,omitempty"`
 }
 
 // Enabled 激活
@@ -42,6 +42,11 @@ func (m defaultWorkwxConfig) GetCorpSecret() string {
 	return m.CorpSecret
 }
 
+// 管理用户
+func (m defaultWorkwxConfig) GetAdminUser() string {
+	return m.AdminUser
+}
+
 // 使用自定义 HOST 覆盖默认企业微信 API 地址
 func (m defaultWorkwxConfig) GetQyAPIHostOverride() string {
 	return m.QyAPIHostOverride
@@ -50,9 +55,4 @@ func (m defaultWorkwxConfig) GetQyAPIHostOverride() string {
 // HTTPS 会话所用密钥
 func (m defaultWorkwxConfig) GetTlsKeyLogFile() string {
 	return m.TlsKeyLogFile
-}
-
-// HTTPS 会话所用密钥
-func (m defaultWorkwxConfig) GetAdminUser() string {
-	return m.AdminUser
 }

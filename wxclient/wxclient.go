@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	app       *workwx.WorkwxApp
+	workwxApp *workwx.WorkwxApp
 	m         sync.RWMutex
 	inited    bool
 )
@@ -32,13 +32,12 @@ func Init() {
 		initWorkwx(workwxConfig)
 
 		log.Info("初始化Workwx完成，开始检测连接...")
-		app.SpawnAccessTokenRefresher()
 
 		testUser := workwx.Recipient{
 			UserIDs: []string{workwxConfig.GetAdminUser()},
 		}
 		testDesc := "企业微信正在进行初始化测试, 该信息请忽略。"
-		err := app.SendTextMessage(&testUser, testDesc, false)
+		err := workwxApp.SendTextMessage(&testUser, testDesc, false)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
@@ -47,14 +46,15 @@ func Init() {
 	inited = true
 }
 
-// GetWorkwx 获取 wxclient
+// GetWorkwx 获取 workwxApp
 func GetWorkwx() *workwx.WorkwxApp {
-	return app
+	return workwxApp
 }
 
 func initWorkwx(workwxConfig config.WorkwxConfig) {
 	client := workwx.New(workwxConfig.GetCorpId())
-	app = client.WithApp(workwxConfig.GetCorpSecret(), workwxConfig.GetAgentId())
+	workwxApp = client.WithApp(workwxConfig.GetCorpSecret(), workwxConfig.GetAgentId())
+	workwxApp.SpawnAccessTokenRefresher()
 }
 
 // UserIDs 成员ID列表（消息接收者），最多支持1000个

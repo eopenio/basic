@@ -41,6 +41,7 @@ func Init() {
 		return
 	}
 
+	log.Info("Test")
 	// 加载yml配置
 	// 先加载基础配置
 	appPath, _ := filepath.Abs(filepath.Dir(filepath.Join("./", string(filepath.Separator))))
@@ -86,7 +87,7 @@ func Init() {
 	config.Get(defaultRootPath, "jwt").Scan(&jwtConfig)
 	config.Get(defaultRootPath, "mail").Scan(&mailConfig)
 	config.Get(defaultRootPath, "sms").Scan(&smsConfig)
-	config.Get(defaultRootPath, "wxclient").Scan(&workwxConfig)
+	config.Get(defaultRootPath, "workwx").Scan(&workwxConfig)
 
 	// 标记已经初始化
 	inited = true
