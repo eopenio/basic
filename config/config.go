@@ -86,7 +86,7 @@ func Init() {
 	config.Get(defaultRootPath, "jwt").Scan(&jwtConfig)
 	config.Get(defaultRootPath, "mail").Scan(&mailConfig)
 	config.Get(defaultRootPath, "sms").Scan(&smsConfig)
-	config.Get(defaultRootPath, "workwx").Scan(&workwxConfig)
+	config.Get(defaultRootPath, "wxclient").Scan(&workwxConfig)
 
 	// 标记已经初始化
 	inited = true

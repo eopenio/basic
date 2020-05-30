@@ -1,6 +1,6 @@
 package config
 
-// WorkwxConfig workwx 配置 接口
+// WorkwxConfig wxclient 配置 接口
 type WorkwxConfig interface {
 	GetEnabled() bool
 	GetAgentId() int64
@@ -11,7 +11,7 @@ type WorkwxConfig interface {
 	GetAdminUser() string
 }
 
-// defaultWorkwxConfig workwx 配置
+// defaultWorkwxConfig wxclient 配置
 type defaultWorkwxConfig struct {
 	Enable            bool   `json:"enabled"`
 	AgentId           int64  `json:"agentid"`

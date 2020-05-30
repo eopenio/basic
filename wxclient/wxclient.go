@@ -1,4 +1,4 @@
-package workwx
+package wxclient
 
 import (
 	"github.com/eopenio/basic/config"
@@ -46,7 +46,7 @@ func Init() {
 	inited = true
 }
 
-// GetWorkwx 获取 workwx
+// GetWorkwx 获取 wxclient
 func GetWorkwx() *workwx.WorkwxApp {
 	return app
 }
