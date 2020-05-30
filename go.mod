@@ -1,6 +1,6 @@
 module github.com/eopenio/basic
 
-go 1.13
+go 1.14
 
 require (
 	github.com/eopenio/workwx v0.3.1
