@@ -24,6 +24,9 @@ var (
 	jwtConfig               defaultJwtConfig
 	redisConfig             defaultRedisConfig
 	profiles                defaultProfiles
+	mailConfig              defaultMailConfig
+	smsConfig               defaultSmsConfig
+	workwxConfig            defaultWorkwxConfig
 	m                       sync.RWMutex
 	inited                  bool
 )
@@ -81,6 +84,9 @@ func Init() {
 	config.Get(defaultRootPath, "mysql").Scan(&mysqlConfig)
 	config.Get(defaultRootPath, "redis").Scan(&redisConfig)
 	config.Get(defaultRootPath, "jwt").Scan(&jwtConfig)
+	config.Get(defaultRootPath, "mail").Scan(&mailConfig)
+	config.Get(defaultRootPath, "sms").Scan(&smsConfig)
+	config.Get(defaultRootPath, "workwx").Scan(&workwxConfig)
 
 	// 标记已经初始化
 	inited = true
@@ -104,4 +110,19 @@ func GetJwtConfig() (ret JwtConfig) {
 // GetRedisConfig 获取Redis配置
 func GetRedisConfig() (ret RedisConfig) {
 	return redisConfig
+}
+
+// GetMailConfig 获取Mail配置
+func GetMailConfig() (ret MailConfig) {
+	return mailConfig
+}
+
+// GetSmsConfig 获取Mail配置
+func GetSmsConfig() (ret SmsConfig) {
+	return smsConfig
+}
+
+// GetWorkwxConfig 获取Mail配置
+func GetWorkwxConfig() (ret WorkwxConfig) {
+	return workwxConfig
 }
