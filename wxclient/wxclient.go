@@ -26,7 +26,7 @@ func Init() {
 	workwxConfig := config.GetWorkwxConfig()
 
 	// 打开才加载
-	if workwxConfig != nil && workwxConfig.GetEnabled() {
+	if workwxConfig.GetEnabled() {
 		log.Info("开始初始化Workwx")
 
 		initWorkwx(workwxConfig)
