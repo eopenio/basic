@@ -46,8 +46,10 @@ func Init() {
 			log.Fatal(err.Error())
 		}
 
-		log.Info("初始化Redis，Ping...")
-		log.Info("初始化Redis，", pong)
+		if pong != "PONG" {
+			log.Info("初始化Redis，连接失败")
+		}
+		log.Info("初始化Redis，检测连接成功")
 	}
 	inited = true
 }
